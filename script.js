@@ -17,3 +17,8 @@ button.onclick = () => {
     //playSineWave(3/2 * 440, 3); //G
     //playSineWave(5/4 * 440, 3); //E
 }
+
+const button2 = document.getElementById('button2');
+button2.onclick = () => {
+    new Audio('canta.mp3').play()
+}
