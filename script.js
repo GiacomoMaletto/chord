@@ -1,4 +1,4 @@
-import { playSineWave440hz } from "./sine.js";
+import { playSineWave } from "./sine.js";
 
 const fileInput = document.getElementById('input');
 fileInput.onchange = async () => {
@@ -8,4 +8,8 @@ fileInput.onchange = async () => {
 }
 
 const button = document.getElementById('button');
-button.onclick = playSineWave440hz
+button.onclick = () => {
+    playSineWave(440, 3); //C
+    playSineWave(3/2 * 440, 3); //G
+    playSineWave(5/4 * 440, 3); //E
+}
