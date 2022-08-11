@@ -9,7 +9,11 @@ fileInput.onchange = async () => {
 
 const button = document.getElementById('button');
 button.onclick = () => {
-    playSineWave(440, 3); //C
-    playSineWave(3/2 * 440, 3); //G
-    playSineWave(5/4 * 440, 3); //E
+    new Audio('notes/0.mp3').play()
+    new Audio('notes/4.mp3').play()
+    new Audio('notes/7.mp3').play()
+    new Audio('notes/12.mp3').play()
+    //playSineWave(440, 3); //C
+    //playSineWave(3/2 * 440, 3); //G
+    //playSineWave(5/4 * 440, 3); //E
 }
