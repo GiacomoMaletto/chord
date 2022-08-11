@@ -1,60 +1,47 @@
+import { playChord } from './player.js';
+
+let currentChord = -1
+let progression = []
+let bpm = 120
+
 const fileInput = document.getElementById('input');
 fileInput.onchange = async () => {
     const selectedFile = fileInput.files[0];
     const text = await selectedFile.text();
     document.getElementById('output').textContent = text;
+
+    const divided = text.split('|').filter(w => w !== '\n' && w !== '')
+                        .map(w => w.trim().split(/ +/));
+    
+    for (const v of divided) {
+        if (v.length === 1) progression.push({chord: v[0], duration: 2});
+        else progression.push({chord: v[0], duration: 1}, {chord: v[1], duration: 1});
+    }
+
+    loop();
+}
+
+function next(n) {
+    n++;
+    if (n >= progression.length) n = 0;
+    return n;
+}
+
+function previous(n) {
+    n--;
+    if (n < 0) n = progression.length - 1;
+    return n;
+}
+
+function loop() {
+    currentChord = next(currentChord);
+    if (progression[currentChord].chord === '%') playChord(progression[previous(currentChord)].chord);
+    else playChord(progression[currentChord].chord);
+    setTimeout(loop, 1000 * 60 / bpm * progression[currentChord].duration);
+    setTimeout(resetPaused, 100);
 }
 
 const button = document.getElementById('button');
 button.onclick = () => {
-    playChord('Db7(#11)');
-}
-
-const audio = Array.from({length: 36}, (x, i) => new Audio('notes/' + i + '.mp3'));
-
-const qualityMap = new Map([
-    ['7',      [0, 4, 7, 10]],
-    ['M7',     [0, 4, 7, 11]],
-    ['m7',     [0, 3, 7, 10]],
-    ['m7(b5)', [0, 3, 6, 10]],
-    ['7(b9)',  [0, 4, 7, 13]],
-    ['7(#11)', [0, 4, 7, 18]],
-    ['6',      [0, 4, 7, 9]]
-]);
-
-const rootMap = new Map([
-    ['C',  3],
-    ['C#', 4],
-    ['Db', 4],
-    ['D',  5],
-    ['D#', 6],
-    ['Eb', 6],
-    ['E',  7],
-    ['F',  8],
-    ['F#', 9],
-    ['Gb', 9],
-    ['G',  10],
-    ['G#', 11],
-    ['Ab', 11],
-    ['A',  12],
-    ['A#', 13],
-    ['Bb', 13],
-    ['B',  14]
-]);
-
-function getRootQuality(str) {
-    for (const note of rootMap.keys()) {
-        if (str.startsWith(note)) return [note, str.slice(note.length)];
-    }
-    throw 'Undefined chord!';
-}
-
-function notationToChord(str) {
-    const [root, quality] = getRootQuality(str);
-    return qualityMap.get(quality).map((n) => n + rootMap.get(root));
-}
-
-function playChord(str) {
-    const chord = notationToChord(str);
-    for (const n of chord) audio[n].play();
+    playChord('E6');
 }
