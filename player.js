@@ -1,6 +1,8 @@
-let audioCtx;
+let audioCtx, gainNode;
 export function setContext() {
     audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+    gainNode = audioCtx.createGain();
+    gainNode.connect(audioCtx.destination);
 }
 
 let OscillatorType;
@@ -13,7 +15,7 @@ function playNote(frequency, duration) {
   
     oscillator.type = OscillatorType;
     oscillator.frequency.value = frequency;
-    oscillator.connect(audioCtx.destination);
+    oscillator.connect(gainNode);
     oscillator.start();
     oscillator.stop(audioCtx.currentTime + duration);
 }
@@ -66,5 +68,6 @@ function notationToChord(str) {
 
 export function playChord(str, duration) {
     const chord = notationToChord(str);
+    gainNode.gain.value = 1 / chord.length;
     for (const n of chord) playNote(220 * Math.pow(2, n / 12), duration);
 }
