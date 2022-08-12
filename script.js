@@ -1,4 +1,4 @@
-import { playChord } from './player.js';
+import { playChord, setContext } from './player.js';
 
 let currentChord = -1
 let progression = []
@@ -6,6 +6,8 @@ let bpm = 120
 
 const fileInput = document.getElementById('input');
 fileInput.onchange = async () => {
+    setContext();
+
     const selectedFile = fileInput.files[0];
     const text = await selectedFile.text();
     document.getElementById('output').textContent = text;
@@ -14,8 +16,8 @@ fileInput.onchange = async () => {
                         .map(w => w.trim().split(/ +/));
     
     for (const v of divided) {
-        if (v.length === 1) progression.push({chord: v[0], duration: 2});
-        else progression.push({chord: v[0], duration: 1}, {chord: v[1], duration: 1});
+        if (v.length === 1) progression.push({chord: v[0], duration: 4});
+        else progression.push({chord: v[0], duration: 2}, {chord: v[1], duration: 2});
     }
 
     loop();
@@ -35,13 +37,9 @@ function previous(n) {
 
 function loop() {
     currentChord = next(currentChord);
-    if (progression[currentChord].chord === '%') playChord(progression[previous(currentChord)].chord);
-    else playChord(progression[currentChord].chord);
+    if (progression[currentChord].chord === '%')
+        playChord(progression[previous(currentChord)].chord, progression[previous(currentChord)].duration * 60 / bpm);
+    else
+        playChord(progression[currentChord].chord, progression[currentChord].duration * 60 / bpm);
     setTimeout(loop, 1000 * 60 / bpm * progression[currentChord].duration);
-    setTimeout(resetPaused, 100);
-}
-
-const button = document.getElementById('button');
-button.onclick = () => {
-    playChord('E6');
 }
