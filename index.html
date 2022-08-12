@@ -11,7 +11,17 @@
 </head>
 
 <body>
-<input type="file" type="text" id="input"><br>
+song:
+<input type="file" type="text" id="input" autocomplete="off"><br>
+sound:
+<select id="type" autocomplete="off">
+    <option value="sine" selected>sine</option>
+    <option value="square">square</option>
+    <option value="sawtooth">sawtooth</option>
+    <option value="triangle">triangle</option>
+</select><br>
+bpm:
+<input type="number" id="bpm" value="140" autocomplete="off"><br>
 <pre id="output"></pre>
 </body>
 
