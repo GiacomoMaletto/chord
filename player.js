@@ -69,6 +69,6 @@ function notationToChord(str) {
 
 export function playChord(str, duration) {
     const chord = notationToChord(str);
-    gainNode.gain.value = 1 / chord.length;
+    gainNode.gain.value = .9 / chord.length;
     for (const n of chord) playNote(220 * Math.pow(2, n / 12), duration);
 }
