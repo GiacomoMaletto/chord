@@ -5,3 +5,6 @@ OK - mettere la possibilità di cambiare start e end (tramite numero della battu
 - grafica migliore
 - accordo corrente illuminato, freccine per start, end
 - brani già pronti
+- accordi slash
+- note da 1/4
+- stop
