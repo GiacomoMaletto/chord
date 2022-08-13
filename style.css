@@ -7,15 +7,15 @@ body {
     white-space: pre;
 }
 
-.current {
-    color: crimson;
-    font-weight: bolder;
-}
-
 .start {
-    background-color: beige;
+    background-color: white;
 }
 
 .end {
-    background-color: beige;
+    background-color: white;
+}
+
+.current {
+    background-color: crimson;
+    color: white;
 }

@@ -112,6 +112,7 @@ function increaseCurrent() {
 }
 
 function play() {
+    pause();
     let delay = 0;
     for (let i = 0; i < progression.length; i++) {
         const v = progression[i];
