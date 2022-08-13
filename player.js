@@ -1,23 +1,37 @@
-let audioCtx, gainNode;
+let audioContext, gainNodes = new Map(), oscillatorNodes = [];
+
 export function setContext() {
-    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-    gainNode = audioCtx.createGain();
-    gainNode.connect(audioCtx.destination);
+    if (!audioContext) {
+        audioContext = new(window.AudioContext || window.webkitAudioContext)();
+        for (let i = 1; i <= 6; i++) {
+            gainNodes[i] = audioContext.createGain();
+            gainNodes[i].connect(audioContext.destination);
+            gainNodes[i].gain.value = .9 / i;
+        }
+    }
 }
 
-let OscillatorType;
-export function setOscillatorType(type) {
-    OscillatorType = type;
-}
-
-function playNote(frequency, duration) {
-    let oscillator = audioCtx.createOscillator();
-  
-    oscillator.type = OscillatorType;
+function addOscillator(frequency, duration, delay, gain, type) {
+    let oscillator = audioContext.createOscillator();
+    oscillator.type = type;
     oscillator.frequency.value = frequency;
-    oscillator.connect(gainNode);
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + duration);
+    oscillator.connect(gainNodes[gain]);
+    oscillator.start(audioContext.currentTime + delay);
+    oscillator.stop(audioContext.currentTime + delay + duration);
+    oscillatorNodes.push(oscillator);
+}
+
+export function addChord(str, duration, delay, type) {
+    const chord = notationToChord(str);
+    for (const n of chord) addOscillator(220 * Math.pow(2, n / 12),
+                                         duration,
+                                         delay,
+                                         chord.length,
+                                         type);
+}
+
+export function interruptSound() {
+    for (const v of oscillatorNodes) v.stop();
 }
 
 const qualityMap = new Map([
@@ -65,10 +79,4 @@ function getRootQuality(str) {
 function notationToChord(str) {
     const [root, quality] = getRootQuality(str);
     return qualityMap.get(quality).map(n => n + rootMap.get(root));
-}
-
-export function playChord(str, duration) {
-    const chord = notationToChord(str);
-    gainNode.gain.value = .9 / chord.length;
-    for (const n of chord) playNote(220 * Math.pow(2, n / 12), duration);
 }

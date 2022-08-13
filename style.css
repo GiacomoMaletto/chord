@@ -1,3 +1,21 @@
 body {
     background-color: lightblue;
 }
+
+#output {
+    font-family: monospace;
+    white-space: pre;
+}
+
+.current {
+    color: crimson;
+    font-weight: bolder;
+}
+
+.start {
+    background-color: beige;
+}
+
+.end {
+    background-color: beige;
+}

@@ -1,0 +1,7 @@
+OK - non basare il tempo su setTimeout
+OK - mettere tasti play, pause, stop
+OK - mettere la possibilità di cambiare start e end (tramite numero della battuta)
+- mettere altri suoni
+- grafica migliore
+- accordo corrente illuminato, freccine per start, end
+- brani già pronti

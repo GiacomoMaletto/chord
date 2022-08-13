@@ -20,9 +20,16 @@ sound:
     <option value="sawtooth">sawtooth</option>
     <option value="triangle">triangle</option>
 </select><br>
+start:
+<input type="number" id="start" autocomplete="off"><br>
+end:
+<input type="number" id="end" autocomplete="off"><br>
+loop:
+<input type="checkbox" id="loop" checked autocomplete="off"><br>
 bpm:
 <input type="number" id="bpm" value="140" autocomplete="off"><br>
-<pre id="output"></pre>
+<button id="play">Play</button> <button id="pause">Resume</button> <button id="stop">Stop</button><br>
+<div id="output"></div>
 </body>
 
 </html>
