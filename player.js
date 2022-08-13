@@ -32,6 +32,7 @@ export function addChord(str, duration, delay, type) {
 
 export function interruptSound() {
     for (const v of oscillatorNodes) v.stop();
+    oscillatorNodes = [];
 }
 
 const qualityMap = new Map([

@@ -112,7 +112,6 @@ function increaseCurrent() {
 }
 
 function play() {
-    pause();
     let delay = 0;
     for (let i = 0; i < progression.length; i++) {
         const v = progression[i];
@@ -127,7 +126,7 @@ function play() {
         timeOuts.push(setTimeout(() => { increaseCurrent(); },
                                  1000 * 60 / bpm * 4 * (i - current + 1)));
     }
-    timeOuts.push(setTimeout(() => { current = startMeasure; pause(); if (loop) play(); },
+    timeOuts.push(setTimeout(() => { current = startMeasure; if (loop) play(); },
                              1000 * delay));
     
     playing = true;
