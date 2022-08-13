@@ -4,7 +4,7 @@ let progression = [];
 let current;
 let timeOuts = [];
 let playing = false;
-let measureCount;
+let measureCount = 0;
 
 let bpm = 140;
 const inputBpm = document.getElementById('bpm');
@@ -22,7 +22,7 @@ let startMeasure, endMeasure;
 const inputStart = document.getElementById('start');
 inputStart.onchange = () => {
     const value = Number(inputStart.value);
-    if (Number.isInteger(value) && value > 0 && value <= progression.length) {
+    if (Number.isInteger(value) && value > 0 && value <= measureCount) {
         startMeasure = value;
         updateText();
     } else inputStart.value = startMeasure;
@@ -30,7 +30,7 @@ inputStart.onchange = () => {
 const inputEnd = document.getElementById('end');
 inputEnd.onchange = () => {
     const value = Number(inputEnd.value);
-    if (Number.isInteger(value) && value > 0 && value <= progression.length) {
+    if (Number.isInteger(value) && value > 0 && value <= measureCount) {
         endMeasure = value;
         updateText();
     } else inputEnd.value = endMeasure;
