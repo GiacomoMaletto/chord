@@ -1,4 +1,4 @@
-import { addChord, setContext, interruptSound, getLatency } from "./player.js";
+import { addChord, setContext, interruptSound } from "./player.js";
 
 let progression = [];
 let current;
@@ -113,7 +113,6 @@ function increaseCurrent() {
 
 function play() {
     pause();
-    buttonPlay.innerHTML = getLatency();
     let delay = 0;
     for (let i = 0; i < progression.length; i++) {
         const v = progression[i];

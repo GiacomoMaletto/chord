@@ -81,7 +81,3 @@ function notationToChord(str) {
     const [root, quality] = getRootQuality(str);
     return qualityMap.get(quality).map(n => n + rootMap.get(root));
 }
-
-export function getLatency() {
-    return audioContext.outputLatency;
-}
