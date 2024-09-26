@@ -124,7 +124,15 @@ function play() {
     for (let i = 0; i < progression.length; i++) {
         const v = progression[i];
         if (current <= v.measure && v.measure <= endMeasure) {
-            const chord = (v.chord === '%') ? progression[i - 1].chord : v.chord;
+            let chord = v.chord;
+            if (chord === '%') {
+                let j = 1;
+                while (chord === '%') {
+                    chord = progression[i-j].chord;
+                    j++;
+                }
+            }
+            // const chord = (v.chord === '%') ? progression[i - 1].chord : v.chord;
             const duration = 60 / bpm * v.beats;
             addChord(chord, duration, delay, oscillatorType);
             delay += duration;
