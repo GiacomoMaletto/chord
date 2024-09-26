@@ -100,9 +100,16 @@ fileInput.onchange = async () => {
     progression = [];
     for (let i = 0; i < divided.length; i++){
         const v = divided[i];
-        if (v.length === 1) progression.push({chord: v[0], beats: 4, measure: i+1});
-        else progression.push({chord: v[0], beats: 2, measure: i+1},
-                              {chord: v[1], beats: 2, measure: i+1});
+        if (v.length === 1)
+            progression.push({chord: v[0], beats: 4, measure: i+1});
+        else if (v.length === 2)
+            progression.push({chord: v[0], beats: 2, measure: i+1}, 
+                             {chord: v[1], beats: 2, measure: i+1});
+        else if (v.length === 4)
+            progression.push({chord: v[0], beats: 1, measure: i+1}, 
+                             {chord: v[1], beats: 1, measure: i+1},
+                             {chord: v[2], beats: 1, measure: i+1},
+                             {chord: v[3], beats: 1, measure: i+1});
     }
 }
 
