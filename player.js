@@ -56,9 +56,9 @@ const qualityMap = new Map([
     ['7(b13)', [-24, 0, 4, 7, 10, 20]], // dominant seventh flat thirteen
     ['6',      [-24, 0, 4, 7, 9]],      // major sixth
     ['m6',     [-24, 0, 3, 7, 9]],      // minor sixth
-    ['9',      [-24, 0, 4, 7, 10, 14]]] // dominant ninth
-    ['M9',     [-24, 0, 4, 7, 11, 14]]] // major ninth
-    ['m9',     [-24, 0, 3, 7, 10, 14]]] // minor ninth
+    ['9',      [-24, 0, 4, 7, 10, 14]], // dominant ninth
+    ['M9',     [-24, 0, 4, 7, 11, 14]], // major ninth
+    ['m9',     [-24, 0, 3, 7, 10, 14]], // minor ninth
     ['note',   [0]],                    // note
     ['-',      []]                      // pause
 ]);
