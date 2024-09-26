@@ -36,20 +36,28 @@ export function interruptSound() {
 }
 
 const qualityMap = new Map([
-    ['',       [-24, 0, 4, 7]],
-    ['m',      [-24, 0, 3, 7]],
-    ['7',      [-24, 0, 4, 7, 10]],
-    ['M7',     [-24, 0, 4, 7, 11]],
-    ['m7',     [-24, 0, 3, 7, 10]],
-    ['m7(b5)', [-24, 0, 3, 6, 10]],
-    ['o7',     [-24, 0, 3, 6, 9]],
-    ['7(b9)',  [-24, 0, 4, 7, 10, 13]],
-    ['7(#11)', [-24, 0, 4, 7, 10, 18]],
-    ['7(b13)', [-24, 0, 4, 7, 10, 20]],
-    ['6',      [-24, 0, 4, 7, 9]],
-    ['m6',     [-24, 0, 3, 7, 9]],
-    ['note',   [0]],
-    ['-',      []]
+    ['',       [-24, 0, 4, 7]],         // major triad
+    ['m',      [-24, 0, 3, 7]],         // minor triad
+    ['+',      [-24, 0, 4, 8]],         // augmented triad
+    ['o',      [-24, 0, 3, 6]],         // diminished triad
+    ['M7',     [-24, 0, 4, 7, 11]],     // major seventh
+    ['m7',     [-24, 0, 3, 7, 10]],     // minor seventh
+    ['7',      [-24, 0, 4, 7, 10]],     // dominant seventh
+    ['7(b5)',  [-24, 0, 4, 6, 10]],     // dominant seventh flat five
+    ['o7',     [-24, 0, 3, 6, 9]],      // diminished seventh
+    ['m7(b5)', [-24, 0, 3, 6, 10]],     // half-diminished seventh
+    ['oM7',    [-24, 0, 3, 6, 11]],     // diminished major seventh
+    ['m(#7)',  [-24, 0, 3, 7, 11]],     // minor major seventh chord
+    ['m(M7)',  [-24, 0, 3, 7, 11]],
+    ['7(#5)',  [-24, 0, 4, 8, 10]],     // augmented seventh
+    ['+7',     [-24, 0, 4, 8, 10]],
+    ['7(b9)',  [-24, 0, 4, 7, 10, 13]], // dominant minor ninth
+    ['7(#11)', [-24, 0, 4, 7, 10, 18]], // lydian
+    ['7(b13)', [-24, 0, 4, 7, 10, 20]], // dominant seventh flat thirteen
+    ['6',      [-24, 0, 4, 7, 9]],      // major sixth
+    ['m6',     [-24, 0, 3, 7, 9]],      // minor sixth
+    ['note',   [0]],                    // note
+    ['-',      []]                      // pause
 ]);
 
 const rootMap = new Map([
