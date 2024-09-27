@@ -2,34 +2,36 @@
 <html>
 
 <head>
-<title>Chord</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="style.css">
-<script type="module" src="script.js" async></script>
-<link rel="shortcut icon" href="#"> <!--per testing locale-->
+    <title>Chord</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="module" src="script.js" async></script>
+    <link rel="shortcut icon" href="#"> <!--per testing locale: python3 -m http.server-->
 </head>
 
 <body>
-song:
-<input type="file" type="text" id="input" autocomplete="off"><br>
-sound:
-<select id="type" autocomplete="off">
-    <option value="sine" selected>sine</option>
-    <option value="square">square</option>
-    <option value="sawtooth">sawtooth</option>
-    <option value="triangle">triangle</option>
-</select><br>
-start:
-<input type="number" id="start" autocomplete="off"><br>
-end:
-<input type="number" id="end" autocomplete="off"><br>
-loop:
-<input type="checkbox" id="loop" checked autocomplete="off"><br>
-bpm:
-<input type="number" id="bpm" value="140" autocomplete="off"><br>
-<button id="play">Play</button> <button id="pause">Resume</button> <button id="stop">Stop</button><br>
-<div id="output"></div>
+    song:
+    <input type="file" type="text" id="input" autocomplete="off"><br>
+    sound:
+    <select id="type" autocomplete="off">
+        <option value="sine" selected>sine</option>
+        <option value="square">square</option>
+        <option value="sawtooth">sawtooth</option>
+        <option selected="selected" value="triangle">triangle</option>
+    </select><br>
+    start:
+    <input type="number" id="start" autocomplete="off"><br>
+    end:
+    <input type="number" id="end" autocomplete="off"><br>
+    loop:
+    <input type="checkbox" id="loop" checked autocomplete="off"><br>
+    bpm:
+    <input type="number" id="bpm" value="140" autocomplete="off"><br>
+    pitch:
+    <input type="number" id="pitch" value="0" autocomplete="off"><br>
+    <button id="play">Play</button> <button id="pause">Resume</button> <button id="stop">Stop</button><br>
+    <div id="output"></div>
 </body>
 
 </html>

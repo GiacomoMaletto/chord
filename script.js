@@ -40,6 +40,12 @@ let loop = true;
 const inputLoop = document.getElementById('loop');
 inputLoop.onchange = () => loop = inputLoop.checked;
 
+let pitch = 0;
+const inputPitch = document.getElementById('pitch');
+inputPitch.onchange = () => {
+    pitch = Number(inputPitch.value);
+}
+
 const buttonPlay = document.getElementById('play');
 buttonPlay.onclick = () => {
     current = startMeasure;
@@ -63,7 +69,7 @@ let defaultText = '';
 function updateText() {
     let split = defaultText.split('|');
     let validMeasure = 0;
-    for (let i = 0; i < split.length; i++){
+    for (let i = 0; i < split.length; i++) {
         let bar = '|';
         if (!['', '\n', '\r', '\r\n'].includes(split[i])) {
             validMeasure++;
@@ -85,12 +91,20 @@ function updateText() {
 const fileInput = document.getElementById('input');
 fileInput.onchange = async () => {
     setContext();
-    
+
     const selectedFile = fileInput.files[0];
     defaultText = await selectedFile.text();
 
+    const newline_index = defaultText.indexOf("\n");
+    const bpm_string = defaultText.substring(0, newline_index);
+    if (bpm_string !== '') {
+        bpm = Number(bpm_string);
+        inputBpm.value = bpm;
+    }
+    defaultText = defaultText.substring(newline_index);
+
     const divided = defaultText.split('|').filter(w => !['', '\n', '\r', '\r\n'].includes(w))
-                               .map(w => w.trim().split(/ +/));
+        .map(w => w.trim().split(/ +/));
 
     measureCount = divided.length;
     current = 1;
@@ -98,18 +112,18 @@ fileInput.onchange = async () => {
     endMeasure = measureCount; inputEnd.value = endMeasure;
     updateText();
     progression = [];
-    for (let i = 0; i < divided.length; i++){
+    for (let i = 0; i < divided.length; i++) {
         const v = divided[i];
         if (v.length === 1)
-            progression.push({chord: v[0], beats: 4, measure: i+1});
+            progression.push({ chord: v[0], beats: 4, measure: i + 1 });
         else if (v.length === 2)
-            progression.push({chord: v[0], beats: 2, measure: i+1}, 
-                             {chord: v[1], beats: 2, measure: i+1});
+            progression.push({ chord: v[0], beats: 2, measure: i + 1 },
+                { chord: v[1], beats: 2, measure: i + 1 });
         else if (v.length === 4)
-            progression.push({chord: v[0], beats: 1, measure: i+1}, 
-                             {chord: v[1], beats: 1, measure: i+1},
-                             {chord: v[2], beats: 1, measure: i+1},
-                             {chord: v[3], beats: 1, measure: i+1});
+            progression.push({ chord: v[0], beats: 1, measure: i + 1 },
+                { chord: v[1], beats: 1, measure: i + 1 },
+                { chord: v[2], beats: 1, measure: i + 1 },
+                { chord: v[3], beats: 1, measure: i + 1 });
     }
 }
 
@@ -128,23 +142,23 @@ function play() {
             if (chord === '%') {
                 let j = 1;
                 while (chord === '%') {
-                    chord = progression[i-j].chord;
+                    chord = progression[i - j].chord;
                     j++;
                 }
             }
             // const chord = (v.chord === '%') ? progression[i - 1].chord : v.chord;
             const duration = 60 / bpm * v.beats;
-            addChord(chord, duration, delay, oscillatorType);
+            addChord(chord, duration, delay, oscillatorType, pitch);
             delay += duration;
         }
     }
-    for(let i = current; i <= endMeasure; i++) {
+    for (let i = current; i <= endMeasure; i++) {
         timeOuts.push(setTimeout(() => { increaseCurrent(); },
-                                 1000 * 60 / bpm * 4 * (i - current + 1)));
+            1000 * 60 / bpm * 4 * (i - current + 1)));
     }
     timeOuts.push(setTimeout(() => { current = startMeasure; pause(); if (loop) play(); },
-                             1000 * delay));
-    
+        1000 * delay));
+
     playing = true;
     buttonPause.innerHTML = 'Pause';
     updateText();
